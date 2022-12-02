@@ -9,7 +9,7 @@ program calories
     integer                  :: tmp
     elfs = 0 ! sets all elements of array to zero instead of random vals
     
-    open(unit=1, file="input_d1.txt", status='old', action="read")
+    open(unit=1, file="../data/input_d1.txt", status='old', action="read")
     
     ! Loop through the file. If we find a blank line, move on to the next elf; if the line is not blank, add calories to current elf.
     j = 0
