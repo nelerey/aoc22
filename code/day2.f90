@@ -20,8 +20,8 @@ program bladsteenschaar
     shapevals_2 = reshape((/ 3, 1, 2, 1, 2, 3, 2, 3, 1 /), shape=shape(shapevals_2))
     outcomevals = reshape((/ 0, 0, 0, 3, 3, 3, 6, 6, 6 /), shape=shape(outcomevals))
     roundvals_2 = outcomevals + shapevals_2
-    print *, outcomevals
-    print *, roundvals_2
+    ! print *, outcomevals
+    ! print *, roundvals_2
 
     open(1, file=filepath, status='old', action="read")
     score_s1 = 0
@@ -39,9 +39,9 @@ program bladsteenschaar
     end do
 1   close(1)
 
-print *, mym, opm
-print *, idx_my, idx_op
-print *, roundvals_2(idx_op, idx_my)
+! print *, mym, opm
+! print *, idx_my, idx_op
+! print *, roundvals_2(idx_op, idx_my)
 print *, "My strategy 1 score is ", score_s1
 print *, "My strategy 2 score is ", score_s2
 
