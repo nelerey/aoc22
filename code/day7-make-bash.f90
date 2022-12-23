@@ -15,8 +15,8 @@ program bash_n_prog
     implicit none
     character(25)               :: inputpath = "../testdata/testin_d7.txt"   ! (20)
     character(10)                :: outscript = "bash_d7.sh"
-    character(70)                :: command
-    character(70)                :: item
+    character(50)                :: command
+    character(50)                :: item
     character(57)               :: elfroot
     integer                     :: delim_idx
     character(35)               :: filesize
@@ -26,9 +26,10 @@ program bash_n_prog
     open(2, file=outscript, status='new')
 
     do
-        read(1, "(A)", end=1) command
+        read(1, '(A)', end=1) command
+    10  print *, command
         ! remove the $ :
-    10  if (index(command, "$ ") .ne. 0) then
+        if (index(command, "$ ") .ne. 0) then
             command = command(3:)
         end if
 
@@ -40,8 +41,10 @@ program bash_n_prog
         else if (index(command, "ls ") .ne. 0) then
             do 
                 read(1, "(A)", end=1) item
+                print *, item
                 ! check if it's an item or a command
                 if (index(item, "$ ") .ne. 0) then
+                    command = item
                     goto 10
                 else
                     ! if the item is a directory, make directory if it doesn't yet exist. 
@@ -57,16 +60,20 @@ program bash_n_prog
             end do
         
         ! keep cd ..
-        else if ( index(command, "cd ..").ne.0 ) then
+        else if (index(command, "cd ..").ne.0) then
             write(2,*) command
         
         ! replace other cd by mkdir <directory> and then cd into it
-        else if ( index(command, "cd ").ne.0 ) then
+        else if (index(command, "cd ").ne.0) then
+            print *, command
             write(2,*) "mkdir ", command(4:)
             write(2,*) "cd ", command(4:)
+        else
+            print *, "Command skipped:", command
         end if 
 
     end do
-1   close(1)
+1   print *, "End; final command: ", command
+    close(1)
     
 end program bash_n_prog
